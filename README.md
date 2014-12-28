@@ -1,6 +1,6 @@
 # SPH Water Simulation
 
-A simple (unoptimized) implementation of  the 'Smooth Particle Hydrodynamics' method for water simulation in C++.
+A simple (unoptimized) implementation of  the 'Smoothed Particle Hydrodynamics' method for water simulation in C++.
 
 ## References
 
