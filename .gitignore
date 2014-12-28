@@ -19,6 +19,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+*.vcxproj
+*.vcxproj.filters
+
 # Roslyn cache directories
 *.ide/
 
