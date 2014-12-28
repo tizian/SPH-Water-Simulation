@@ -10,3 +10,8 @@ A simple (unoptimized) implementation of  the 'Smooth Particle Hydrodynamics' me
 ## Used Libraries
 
 * [SFML](http://www.sfml-dev.org/):  Simple and Fast Multimedia Library
+
+
+--
+![Particles screenshot](screenshots/particles.png)
+![Water screenshot](screenshots/water.png)
