@@ -11,7 +11,7 @@ A simple (unoptimized) 2D implementation of  the 'Smoothed Particle Hydrodynamic
 
 * [SFML](http://www.sfml-dev.org/):  Simple and Fast Multimedia Library
 
-## Youtube
+## YouTube
 [https://www.youtube.com/watch?v=H5FRzSQZkFI](https://www.youtube.com/watch?v=H5FRzSQZkFI)
 
 ## Screenshots
