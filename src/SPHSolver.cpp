@@ -126,6 +126,17 @@ void SPHSolver::render(RenderTarget &rt, Visualization vis)
 {
 	if (vis != Visualization::Water)
 	{
+		setParticleColors(vis);
+	}
+
+
+	for (int i = 0; i < numberParticles; i++)
+	{
+		particles[i].force = Vector2f(0.0f, 0.0f);
+	}
+
+	if (vis != Visualization::Water)
+	{
 		CircleShape circle(0.5f * PARTICLE_SPACING * SCALE);
 
 		for (int i = 0; i < numberParticles; i++)
@@ -192,17 +203,6 @@ void SPHSolver::update(float dt, Visualization vis)
 	calculateForceDensity();
 	integrationStep(dt);
 	collisionHandling();
-
-	if (vis != Visualization::Water)
-	{
-		setParticleColors(vis);
-	}
-	
-
-	for (int i = 0; i < numberParticles; i++)
-	{
-		particles[i].force = Vector2f(0.0f, 0.0f);
-	}
 
 	grid.updateStructure(particles);
 }
