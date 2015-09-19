@@ -7,30 +7,29 @@
 #include "SPHSolver.h"
 
 using namespace std;
-using namespace sf;
 using namespace Constants;
 
-const string APPLICATION_NAME = "Smooth Particle Hydrodynamics";
+const string APPLICATION_NAME = "Smoothed Particle Hydrodynamics";
 
 Visualization vis = Visualization::Default;
 
-Shader shader;
+sf::Shader shader;
 
 SPHSolver sph = SPHSolver();
 
-bool pause = false;
+bool pauseAnimation = false;
 
 void init();
 void update(float);
-void render(RenderWindow &, RenderTexture &);
+void render(sf::RenderWindow &, sf::RenderTexture &);
 void toggleVisualization();
 
 int main()
 {
-	RenderWindow window(VideoMode(RENDER_WIDTH * WINDOW_SCALE, RENDER_HEIGHT * WINDOW_SCALE), APPLICATION_NAME);
+	sf::RenderWindow window(sf::VideoMode(RENDER_WIDTH * WINDOW_SCALE, RENDER_HEIGHT * WINDOW_SCALE), APPLICATION_NAME);
 	window.setKeyRepeatEnabled(false);
 
-	RenderTexture renderTexture;
+	sf::RenderTexture renderTexture;
 	renderTexture.create(RENDER_WIDTH, RENDER_HEIGHT);
 
 	init();
@@ -39,80 +38,80 @@ int main()
 
 	while (window.isOpen())
 	{
-		Event event;
+		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
+			if (event.type == sf::Event::Closed)
 			{
 				window.close();
 			}
 
-			if (event.type == Event::KeyPressed)
+			if (event.type == sf::Event::KeyPressed)
 			{
-				if (event.key.code == Keyboard::Escape)
+				if (event.key.code == sf::Keyboard::Escape)
 				{
 					window.close();
 				}
 
-				if (event.key.code == Keyboard::Tab)
+				if (event.key.code == sf::Keyboard::Tab)
 				{
 					toggleVisualization();
 				}
 
-				if (event.key.code == Keyboard::Space)
+				if (event.key.code == sf::Keyboard::Space)
 				{
-					pause = !pause;
+					pauseAnimation = !pauseAnimation;
 				}
 
-				if (event.key.code == Keyboard::Num1)
+				if (event.key.code == sf::Keyboard::Num1)
 				{
 					sph = SPHSolver();
 					vis = Visualization::Default;
 				}
 
-				if (event.key.code == Keyboard::Num2)
+				if (event.key.code == sf::Keyboard::Num2)
 				{
 					sph = SPHSolver();
 					vis = Visualization::Velocity;
 				}
 
-				if (event.key.code == Keyboard::Num3)
+				if (event.key.code == sf::Keyboard::Num3)
 				{
 					sph = SPHSolver();
 					vis = Visualization::Force;
 				}
 
-				if (event.key.code == Keyboard::Num4)
+				if (event.key.code == sf::Keyboard::Num4)
 				{
 					sph = SPHSolver();
 					vis = Visualization::Density;
 				}
 
-				if (event.key.code == Keyboard::Num5)
+				if (event.key.code == sf::Keyboard::Num5)
 				{
 					sph = SPHSolver();
 					vis = Visualization::Pressure;
 				}
 
-				if (event.key.code == Keyboard::Num6)
+				if (event.key.code == sf::Keyboard::Num6)
 				{
 					sph = SPHSolver();
 					vis = Visualization::Water;
 				}
 			}
 
-			if (event.type == Event::MouseButtonPressed)
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
 				float x = event.mouseButton.x / WINDOW_SCALE / SCALE;
 				float y = event.mouseButton.y / WINDOW_SCALE / SCALE;
-				Vector2f position = Vector2f(x, y);
+				sf::Vector2f position = sf::Vector2f(x, y);
 
-				if (event.mouseButton.button == Mouse::Left)
+				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					sph.repulsionForce(position);
 				}
 
-				if (event.mouseButton.button == Mouse::Right)
+				if (event.mouseButton.button == sf::Mouse::Right)
 				{
 					sph.attractionForce(position);
 				}
@@ -143,7 +142,7 @@ int main()
 			break;
 		}
 
-		if (!pause)
+		if (!pauseAnimation)
 		{
 			update(TIMESTEP);
 			time += TIMESTEP;
@@ -151,7 +150,7 @@ int main()
 		
 		//cout << time << endl;
 
-		renderTexture.clear(Color::Black);
+		renderTexture.clear(sf::Color::Black);
 
 		render(window, renderTexture);
 		
@@ -171,13 +170,13 @@ void update(float dt)
 	sph.update(dt, vis);
 }
 
-void render(RenderWindow &window, RenderTexture &renderTexture)
+void render(sf::RenderWindow &window, sf::RenderTexture &renderTexture)
 {
 	sph.render(renderTexture, vis);
 	renderTexture.display();
 	renderTexture.setSmooth(true);
 
-	Sprite sprite = Sprite(renderTexture.getTexture());
+	sf::Sprite sprite = sf::Sprite(renderTexture.getTexture());
 	sprite.setScale(WINDOW_SCALE, WINDOW_SCALE);
 
 	if (vis != Visualization::Water)
@@ -186,7 +185,7 @@ void render(RenderWindow &window, RenderTexture &renderTexture)
 	}
 	else
 	{
-		shader.setParameter("texture", Shader::CurrentTexture);
+		shader.setParameter("texture", sf::Shader::CurrentTexture);
 		window.draw(sprite, &shader);
 	}
 }

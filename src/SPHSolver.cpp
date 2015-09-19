@@ -319,31 +319,6 @@ void SPHSolver::calculateForceDensity()
 			//particles[i].color += particles[j].mass / particles[j].density * kernel(x, KERNEL_RANGE);
 		}
 
-		//particles[i].normal = Vector2f(0.0f, 0.0f);
-
-		//for (int n = 0; n < neighbors.size(); n++)
-		//{
-		//	int j = neighbors[n];
-		//	Vector2f x = particles[i].position - particles[j].position;
-
-		//	////particles[i].normal += particles[j].mass / particles[j].density * gradKernel(x, KERNEL_RANGE);
-		//}
-
-		//float normalLength = sqrt(particles[i].normal.x * particles[i].normal.x + particles[i].normal.y * particles[i].normal.y);
-
-		//Vector2f fSurface = Vector2f(0.0f, 0.0f);
-
-		//for (int n = 0; n < neighbors.size(); n++)
-		//{
-		//	int j = neighbors[n];
-		//	Vector2f x = particles[i].position - particles[j].position;
-
-		//	if (normalLength > 0.1f)
-		//	{
-		//		fSurface += -TENSION * (particles[j].mass / particles[j].density * laplaceKernel(x, KERNEL_RANGE)) * particles[i].normal / normalLength;
-		//	}
-		//}
-
 		// Gravitational force density
 		fGravity = particles[i].density * Vector2f(0, GRAVITY);
 
