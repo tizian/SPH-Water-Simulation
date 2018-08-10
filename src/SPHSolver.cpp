@@ -244,14 +244,14 @@ void SPHSolver::findNeighborhoods()
 	neighborhoods = vector<vector<int>>();
 	float maxDist2 = KERNEL_RANGE * KERNEL_RANGE;
 
-	for each (const Particle &p in particles)
+	for (const Particle &p : particles)
 	{
 		vector<int> neighbors = vector<int>();
 		vector<Cell> neighboringCells = grid.getNeighboringCells(p.position);
 
-		for each (const Cell &cell in neighboringCells)
+		for (const Cell &cell : neighboringCells)
 		{
-			for each (int index in cell)
+			for (int index : cell)
 			{
 				Vector2f x = p.position - particles[index].position;
 				float dist2 = x.x * x.x + x.y * x.y;
